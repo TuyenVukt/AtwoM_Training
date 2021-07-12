@@ -1,9 +1,13 @@
 package com.springtest.controller;
 
 import com.springtest.domain.Project;
+import com.springtest.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,9 +16,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/project")
 public class ProjectJava {
+    @Autowired
+    private ProjectService projectService;
 
     @RequestMapping("/list")
     public  String list(Model model){
+        projectService.print();
         Project p1 = new Project();
         p1.setId(1L);
         p1.setTitle("Training");
@@ -35,5 +42,12 @@ public class ProjectJava {
         model.addAttribute("list", projectList);
         return "project/list";
 
+    }
+
+    @RequestMapping("/sample")
+    @ResponseBody
+    public String sample(){
+        System.out.println("sample mapping");
+        return "project/list";
     }
 }
